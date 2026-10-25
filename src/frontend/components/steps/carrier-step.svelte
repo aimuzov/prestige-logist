@@ -6,13 +6,13 @@
 
 	import type { Carrier } from '#shared/request.ts'
 	import AddressPicker from '#frontend/components/address-picker.svelte'
-	import Badge from '#frontend/components/ui/badge.svelte'
-	import Card from '#frontend/components/ui/card.svelte'
-	import CopyValue from '#frontend/components/ui/copy-value.svelte'
+	import Badge from '@aimuzov/infra-site-kit/ui/badge.svelte'
+	import Card from '@aimuzov/infra-site-kit/ui/card.svelte'
+	import CopyValue from '@aimuzov/infra-site-kit/ui/copy-value.svelte'
 	import Disclosure from '#frontend/components/ui/disclosure.svelte'
-	import Field from '#frontend/components/ui/field.svelte'
+	import Field from '@aimuzov/infra-site-kit/ui/field.svelte'
 	import Grid from '#frontend/components/ui/grid.svelte'
-	import Skeleton from '#frontend/components/ui/skeleton.svelte'
+	import Skeleton from '@aimuzov/infra-site-kit/ui/skeleton.svelte'
 	import SummaryBox from '#frontend/components/ui/summary-box.svelte'
 	import { wizard } from '#frontend/lib/wizard.svelte.ts'
 
@@ -164,7 +164,9 @@
 					{#snippet icon()}<Building size={16} />{/snippet}
 					{#snippet summary()}
 						<p class="carrier__name">
-							{wizard.carrierName || 'Без наименования'}<Badge>{carrier.kind}</Badge>
+							{wizard.carrierName || 'Без наименования'}<span class="carrier__badge"
+								><Badge>{carrier.kind}</Badge></span
+							>
 						</p>
 						<p class="carrier__codes">
 							{#if carrier.inn}<CopyValue label="ИНН" value={carrier.inn} />{/if}
@@ -247,6 +249,10 @@
 
 		&__name {
 			font-weight: 500;
+		}
+
+		&__badge {
+			margin-left: 0.5rem;
 		}
 
 		/* Сегменты в общей подложке, как у переключателя: выбор один из двух. */

@@ -2,7 +2,7 @@
 	import ArrowLeft from '@lucide/svelte/icons/arrow-left'
 	import ArrowRight from '@lucide/svelte/icons/arrow-right'
 
-	import Button from '#frontend/components/ui/button.svelte'
+	import Button from '@aimuzov/infra-site-kit/ui/button.svelte'
 	import { STEPS, wizard } from '#frontend/lib/wizard.svelte.ts'
 
 	const loaded = $derived(Boolean(wizard.order))

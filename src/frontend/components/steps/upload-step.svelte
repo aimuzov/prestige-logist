@@ -4,14 +4,15 @@
 	import FileCheck from '@lucide/svelte/icons/file-check-corner'
 	import FolderOpen from '@lucide/svelte/icons/folder-open'
 	import Sparkles from '@lucide/svelte/icons/sparkles'
-	import Upload from '@lucide/svelte/icons/upload'
 
 	import type { OrderSummary } from '#shared/request.ts'
-	import Alert from '#frontend/components/ui/alert.svelte'
-	import Button from '#frontend/components/ui/button.svelte'
-	import Card from '#frontend/components/ui/card.svelte'
-	import ChipButton from '#frontend/components/ui/chip-button.svelte'
-	import Skeleton from '#frontend/components/ui/skeleton.svelte'
+	import Alert from '@aimuzov/infra-site-kit/ui/alert.svelte'
+	import Button from '@aimuzov/infra-site-kit/ui/button.svelte'
+	import Card from '@aimuzov/infra-site-kit/ui/card.svelte'
+	import ChipButton from '@aimuzov/infra-site-kit/ui/chip-button.svelte'
+	import Dropzone from '@aimuzov/infra-site-kit/ui/dropzone.svelte'
+	import { pickFile } from '@aimuzov/infra-site-kit/ui/files.js'
+	import Skeleton from '@aimuzov/infra-site-kit/ui/skeleton.svelte'
 	import { wizard } from '#frontend/lib/wizard.svelte.ts'
 
 	const SUMMARY_LABELS: Array<[keyof OrderSummary, string]> = [
@@ -30,8 +31,7 @@
 		['to', 'Выгрузка'],
 	]
 
-	let dragging = $state(false)
-	let picker: HTMLInputElement
+	const ACCEPT = '.zip,.xml'
 
 	const take = (file?: File | null) => {
 		if (file) wizard.analyze(file)
@@ -53,18 +53,6 @@
 	}
 </script>
 
-<!-- Выбор файла один на оба состояния: дропзона исчезает, а «Заменить» пользуется им же. -->
-<input
-	bind:this={picker}
-	type="file"
-	accept=".zip,.xml"
-	hidden
-	onchange={(event) => {
-		take(event.currentTarget.files?.[0])
-		event.currentTarget.value = ''
-	}}
-/>
-
 <div class="upload">
 	<!-- Разобранное поручение занимает место дропзоны: загружать второй раз незачем,
 	     а понадобится — рядом со сводкой есть «Заменить». Пока сервер разбирает файл,
@@ -85,34 +73,14 @@
 			</Card>
 		</div>
 	{:else if !wizard.summary}
-		<div
-			class={['upload__drop', dragging && 'upload__drop--over']}
-			role="button"
-			tabindex="0"
-			aria-label="Загрузить комплект поручения"
-			onclick={() => picker.click()}
-			onkeydown={(event) => (event.key === 'Enter' || event.key === ' ') && picker.click()}
-			ondragover={(event) => {
-				event.preventDefault()
-				dragging = true
-			}}
-			ondragleave={() => (dragging = false)}
-			ondrop={(event) => {
-				event.preventDefault()
-				dragging = false
-				take(event.dataTransfer?.files[0])
-			}}
-		>
-			<span class="upload__icon"><Upload size={22} /></span>
-			<p class="upload__title">
-				{wizard.analyzing ? 'Разбираем комплект…' : 'Перетащите сюда комплект поручения'}
-			</p>
-			<p class="upload__note">zip «полного документооборота» или отдельный ON_POREXPKLT_*.xml</p>
-			<span class="upload__button">
-				<FolderOpen size={18} />
-				Выбрать файл
-			</span>
-		</div>
+		<Dropzone
+			size="lg"
+			accept={ACCEPT}
+			label="Загрузить комплект поручения"
+			title="Перетащите сюда комплект поручения"
+			note="zip «полного документооборота» или отдельный ON_POREXPKLT_*.xml"
+			onfile={take}
+		/>
 
 		<div class="upload__demo">
 			<p class="upload__demo-text">
@@ -142,7 +110,7 @@
 		{@const summary = wizard.summary}
 		<Card title={wizard.fileName} icon={FileCheck}>
 			{#snippet action()}
-				<ChipButton disabled={wizard.analyzing} onclick={() => picker.click()}>
+				<ChipButton disabled={wizard.analyzing} onclick={async () => take(await pickFile(ACCEPT))}>
 					<FolderOpen size={14} />
 					Заменить
 				</ChipButton>
@@ -162,79 +130,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-
-		&__drop {
-			cursor: pointer;
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-			align-items: center;
-			justify-content: center;
-			min-height: 20rem;
-			padding: 3.5rem 1.5rem;
-			border: 1.5px dashed var(--border-strong);
-			border-radius: var(--radius);
-			text-align: center;
-			background: var(--bg);
-			transition:
-				background-color 0.15s,
-				border-color 0.15s;
-
-			@media (--reduced-motion) {
-				transition: none;
-			}
-
-			&:hover,
-			&--over {
-				border-color: color-mix(in srgb, var(--selected-text) 45%, transparent);
-				background: var(--hover-bg);
-			}
-
-			&:focus-visible {
-				border-color: var(--brand);
-				outline: none;
-				box-shadow: 0 0 0 3px var(--ring);
-			}
-		}
-
-		&__icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 3.5rem;
-			height: 3.5rem;
-			margin-bottom: 0.75rem;
-			border-radius: var(--radius);
-			color: var(--brand-text);
-			background: var(--brand-soft);
-		}
-
-		&__title {
-			font-size: 1rem;
-			font-weight: 500;
-		}
-
-		&__note {
-			color: var(--muted);
-		}
-
-		/* Не кнопка, а её вид: щелчок по всей зоне делает то же самое. */
-		&__button {
-			display: inline-flex;
-			gap: 0.5rem;
-			align-items: center;
-			height: 2.75rem;
-			margin-top: 1.25rem;
-			padding: 0 1.5rem;
-			border-radius: var(--radius-sm);
-			font-weight: 500;
-			color: var(--primary-fg);
-			background: var(--primary);
-		}
-
-		&__drop:hover &__button {
-			background: color-mix(in srgb, var(--primary) 88%, black);
-		}
 
 		&__demo {
 			display: flex;

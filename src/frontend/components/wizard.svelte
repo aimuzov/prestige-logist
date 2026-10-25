@@ -11,7 +11,7 @@
 	import MissingList from '#frontend/components/missing-list.svelte'
 	import Logo from '#frontend/components/logo.svelte'
 	import StepNav from '#frontend/components/step-nav.svelte'
-	import Button from '#frontend/components/ui/button.svelte'
+	import Button from '@aimuzov/infra-site-kit/ui/button.svelte'
 	import Toast from '#frontend/components/ui/toast.svelte'
 	import ThemeToggle from '#frontend/components/theme-toggle.svelte'
 	import CarrierStep from '#frontend/components/steps/carrier-step.svelte'

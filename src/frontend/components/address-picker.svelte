@@ -4,8 +4,8 @@
 
 	import { addressToText, type FiasAddress } from '#shared/address.ts'
 	import type { AddressSuggestion } from '#shared/api.ts'
-	import InfoTip from '#frontend/components/ui/info-tip.svelte'
-	import Skeleton from '#frontend/components/ui/skeleton.svelte'
+	import InfoTip from '@aimuzov/infra-site-kit/ui/info-tip.svelte'
+	import Skeleton from '@aimuzov/infra-site-kit/ui/skeleton.svelte'
 	import SummaryBox from '#frontend/components/ui/summary-box.svelte'
 	import { api, later } from '#frontend/lib/api.ts'
 	import { enterList, moveInList } from '#frontend/lib/list-keys.ts'
