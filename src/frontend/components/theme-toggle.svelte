@@ -7,7 +7,7 @@
 	import { themePeek } from '@aimuzov/infra-site-kit/theme-peek.js'
 	import { onMount, tick } from 'svelte'
 
-	import Button from '#frontend/components/ui/button.svelte'
+	import Button from '@aimuzov/infra-site-kit/ui/button.svelte'
 
 	// Выбор до отрисовки ставит ThemeBoot в layouts/base.astro, ключ по умолчанию у обоих.
 	const VIEW = {

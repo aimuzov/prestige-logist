@@ -59,6 +59,35 @@
 		0 8px 24px -6px light-dark(oklch(23% 0.012 230 / 14%), oklch(0% 0 0 / 60%)),
 		0 2px 6px light-dark(oklch(23% 0.012 230 / 6%), transparent);
 
+	/* Палитра для компонентов из infra-site-kit/ui: они читают только свои --ui-*. */
+	--ui-bg: var(--bg);
+	--ui-fg: var(--fg);
+	--ui-muted: var(--muted);
+	--ui-surface: var(--surface);
+	--ui-border: var(--border);
+	--ui-border-strong: var(--border-strong);
+	--ui-primary: var(--primary);
+	--ui-primary-fg: var(--primary-fg);
+	--ui-accent: var(--brand-text);
+	--ui-accent-soft: var(--brand-soft);
+	--ui-hover-bg: var(--hover-bg);
+	--ui-hover-border: var(--hover-border);
+	--ui-hover-fg: var(--selected-text);
+	--ui-selected-soft: var(--selected-soft);
+	--ui-focus: var(--brand);
+	--ui-ring: var(--ring);
+	--ui-danger: var(--danger);
+	--ui-danger-bg: var(--danger-bg);
+	--ui-success: var(--success);
+	--ui-warning: var(--warning);
+	--ui-warning-bg: var(--warning-bg);
+	--ui-radius: var(--radius);
+	--ui-radius-sm: var(--radius-sm);
+	--ui-shadow-sm: var(--shadow-sm);
+	--ui-shadow-md: var(--shadow-md);
+	--ui-font-mono: var(--font-mono);
+	--ui-gutter: var(--gutter);
+
 	/* По умолчанию — как в системе. Выбор из переключателя кладёт data-theme на <html>. */
 	color-scheme: light dark;
 

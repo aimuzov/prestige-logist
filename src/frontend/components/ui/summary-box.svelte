@@ -3,7 +3,7 @@
 	import Pencil from '@lucide/svelte/icons/pencil'
 	import type { Snippet } from 'svelte'
 
-	import ChipButton from '#frontend/components/ui/chip-button.svelte'
+	import ChipButton from '@aimuzov/infra-site-kit/ui/chip-button.svelte'
 
 	type Props = {
 		/** Уникален на странице: связывает кнопку с телом для читалок. */

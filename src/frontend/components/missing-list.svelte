@@ -2,7 +2,7 @@
 	import CircleCheck from '@lucide/svelte/icons/circle-check'
 	import Download from '@lucide/svelte/icons/download'
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert'
-	import ChipButton from '#frontend/components/ui/chip-button.svelte'
+	import ChipButton from '@aimuzov/infra-site-kit/ui/chip-button.svelte'
 	import { STEPS, wizard } from '#frontend/lib/wizard.svelte.ts'
 
 	/** Пропуски по шагам и в их порядке — список читается так же, как идёт форма. */

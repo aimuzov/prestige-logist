@@ -3,8 +3,8 @@
 	import PackagePlus from '@lucide/svelte/icons/package-plus'
 	import { DEFAULT_TIME } from '#shared/request.ts'
 	import AddressPicker from '#frontend/components/address-picker.svelte'
-	import Card from '#frontend/components/ui/card.svelte'
-	import InfoTip from '#frontend/components/ui/info-tip.svelte'
+	import Card from '@aimuzov/infra-site-kit/ui/card.svelte'
+	import InfoTip from '@aimuzov/infra-site-kit/ui/info-tip.svelte'
 	import { wizard } from '#frontend/lib/wizard.svelte.ts'
 
 	/** В форме дата живёт как ДД.ММ.ГГГГ, а input[type=date] хочет ISO. */
