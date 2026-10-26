@@ -80,7 +80,7 @@
 	onpointerleave={hideTip}
 	onfocus={showTip}
 	onblur={hideTip}
-	{@attach (node) => themePeek(node, { approach: false })}
+	{@attach themePeek}
 >
 	<view.icon size={16} />
 </Button>
