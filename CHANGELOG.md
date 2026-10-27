@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.3](https://github.com/aimuzov/prestige-logist/compare/v1.3.2...v1.3.3) (2026-10-27)
+
+
+### Bug Fixes
+
+* collect no request data and no sessions in Sentry ([035a156](https://github.com/aimuzov/prestige-logist/commit/035a1565800af1600ab12608d68da9a3d44a077c))
+* drop process sessions from the API Sentry client ([d987bd0](https://github.com/aimuzov/prestige-logist/commit/d987bd0ef3bab6e986e7ebfe13e05c06a19dc937))
+* keep query strings and visitor IP out of browser errors in Sentry ([5e9251c](https://github.com/aimuzov/prestige-logist/commit/5e9251c614e8d256a97da26cb471757fb4db53e6))
+* send nothing to Sentry from the browser until an error happens ([19015e8](https://github.com/aimuzov/prestige-logist/commit/19015e88822210d4e7895d5d2d5611f9c3be5dc8))
+* update infra-site-kit to v5 and drop the theme peek approach option ([c8f81bb](https://github.com/aimuzov/prestige-logist/commit/c8f81bb751237659c80d8ab807bdbcb92b244729))
+* update infra-site-kit to v5 and drop the theme peek approach option ([f4fb697](https://github.com/aimuzov/prestige-logist/commit/f4fb69765f004e1792cad487688b403c7682c32d))
+
 ## [1.3.2](https://github.com/aimuzov/prestige-logist/compare/v1.3.1...v1.3.2) (2026-10-24)
 
 

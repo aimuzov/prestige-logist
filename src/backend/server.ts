@@ -7,6 +7,8 @@
  * общие типы лежат в src/shared.
  */
 
+import '#backend/sentry.ts'
+
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http'
 
 import { missingFields, withPlaceholders } from '#backend/core/fields.ts'
@@ -18,6 +20,7 @@ import { encodeXml } from '#backend/core/xml/encoding.ts'
 import { searchAddresses } from '#backend/dadata.ts'
 import { carrierByInn, dadataToken, forwarderByInn } from '#backend/lookup.ts'
 import { searchPackaging } from '#backend/packaging.ts'
+import { captureException } from '#backend/sentry.ts'
 import type { AnalyzeResponse, BuildResponse } from '#shared/api.ts'
 import type { ForwardingOrder } from '#shared/order.ts'
 import type { RequestInput } from '#shared/request.ts'
@@ -46,7 +49,11 @@ async function readBody(request: IncomingMessage): Promise<Buffer> {
 	return Buffer.concat(chunks)
 }
 
-const failure = (status: number, error: unknown): Reply => [status, { error: (error as Error).message }]
+const failure = (status: number, error: unknown): Reply => {
+	captureException(error)
+
+	return [status, { error: (error as Error).message }]
+}
 
 /**
  * Разобранное поручение уезжает клиенту целиком: он держит его у себя и присылает

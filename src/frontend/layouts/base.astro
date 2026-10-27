@@ -44,5 +44,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site)
 	<body>
 		<slot />
 		<SiteFooter />
+		<script>
+			import { sentry } from '#frontend/lib/sentry.ts'
+			void sentry()
+		</script>
 	</body>
 </html>
