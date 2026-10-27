@@ -94,7 +94,7 @@ The e2e tests in [`e2e`](e2e) build the site and open it in Chromium with the sh
 
 ## Content Security Policy
 
-The build puts a CSP with hashes of Astro's scripts and styles into every page (the `security.csp` option in `astro.config.mjs`), with no third-party sources at all. `npm run dev` has no policy, so violations only show up after `npm run build && npm run preview` and in production.
+The build puts a CSP with hashes of Astro's scripts and styles into every page (the `security.csp` option in `astro.config.mjs`), with one third-party source: `connect-src` lets browser errors through to Sentry. `npm run dev` has no policy, so violations only show up after `npm run build && npm run preview` and in production.
 
 - No `style=""` attributes or handlers like `onclick`: styles go through classes, handlers live in `<script>`.
 - An inline script that runs before the first paint doesn't pass by hash, so the theme choice is applied by a separate file, `ThemeBoot` from infra-site-kit.
@@ -102,6 +102,7 @@ The build puts a CSP with hashes of Astro's scripts and styles into every page (
 ## External sources
 
 - [dadata](https://dadata.ru): FIAS address search and company details by INN (EGRUL/EGRIP). The token is `DADATA_TOKEN` in `.env`.
+- [Sentry](https://sentry.io): errors of the API (`SENTRY_DSN`) and of the browser (`PUBLIC_SENTRY_DSN`, baked in at build time). Both live in `.env`; empty keeps Sentry off.
 - Kontur's open picklist of package kinds (OKVGUM type), fetched once per process and cached.
 
 ## Deployment

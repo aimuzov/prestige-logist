@@ -17,15 +17,17 @@ export default defineConfig({
 	vite: { server: { proxy }, preview: { proxy } },
 	// Подсветка Shiki несовместима с CSP.
 	markdown: { syntaxHighlight: false },
-	// Astro кладёт CSP с хешами своих скриптов и стилей в <meta> страницы. Внешних источников
-	// нет. frame-ancestors в <meta> не действует, встраивание запрещает X-Frame-Options в Caddy.
+	// Astro кладёт CSP с хешами своих скриптов и стилей в <meta> страницы. Из внешних
+	// источников только приём ошибок Sentry. frame-ancestors в <meta> не действует,
+	// встраивание запрещает X-Frame-Options в Caddy.
 	security: {
 		csp: {
 			scriptDirective: { resources: ["'self'"] },
 			directives: [
 				"default-src 'self'",
 				"img-src 'self' data:",
-				"connect-src 'self'",
+				// ошибки браузера уходят в Sentry
+				"connect-src 'self' https://*.ingest.de.sentry.io",
 				'frame-src blob:',
 				'child-src blob:',
 				"object-src 'none'",
