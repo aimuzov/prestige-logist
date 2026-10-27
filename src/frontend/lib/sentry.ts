@@ -1,3 +1,5 @@
+import type { Breadcrumb } from '@sentry/browser'
+
 // Именованный импорт: в бандл попадает только версия, а не весь package.json.
 import { version } from '#package.json'
 
@@ -23,5 +25,19 @@ export async function sentry() {
 		initialScope: { tags: { component: 'site' } },
 		// Без сессий: иначе SDK шлёт запрос на каждый заход, а не только при ошибке.
 		integrations: (defaults) => defaults.filter(({ name }) => name !== 'BrowserSession'),
+		// В query поиска адреса уходит сам адрес, а IP посетителя проекту ни к чему.
+		dataCollection: { userInfo: false, urlQueryParams: false },
+		beforeBreadcrumb: stripQuery,
 	})
+}
+
+/** Крошки fetch и навигации несут адрес целиком, `urlQueryParams` их надёжнее обрезать самим. */
+function stripQuery(breadcrumb: Breadcrumb): Breadcrumb {
+	const data = breadcrumb.data
+
+	if (!data) return breadcrumb
+
+	for (const key of ['url', 'from', 'to']) if (typeof data[key] === 'string') data[key] = data[key].split('?')[0]
+
+	return breadcrumb
 }
