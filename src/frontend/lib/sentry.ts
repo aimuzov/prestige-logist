@@ -21,5 +21,7 @@ export async function sentry() {
 		environment: 'production',
 		release: `prestige-logist@${version}`,
 		initialScope: { tags: { component: 'site' } },
+		// Без сессий: иначе SDK шлёт запрос на каждый заход, а не только при ошибке.
+		integrations: (defaults) => defaults.filter(({ name }) => name !== 'BrowserSession'),
 	})
 }
