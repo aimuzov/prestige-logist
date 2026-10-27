@@ -26,7 +26,15 @@ export async function sentry() {
 		// Без сессий: иначе SDK шлёт запрос на каждый заход, а не только при ошибке.
 		integrations: (defaults) => defaults.filter(({ name }) => name !== 'BrowserSession'),
 		// В query поиска адреса уходит сам адрес, а IP посетителя проекту ни к чему.
-		dataCollection: { userInfo: false, urlQueryParams: false },
+		dataCollection: {
+			userInfo: false,
+			cookies: false,
+			httpHeaders: false,
+			httpBodies: [],
+			urlQueryParams: false,
+			genAI: { inputs: false, outputs: false },
+			stackFrameVariables: false,
+		},
 		beforeBreadcrumb: stripQuery,
 	})
 }

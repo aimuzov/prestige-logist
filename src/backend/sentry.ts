@@ -26,8 +26,11 @@ if (process.env.SENTRY_DSN) {
 			httpHeaders: false,
 			httpBodies: [],
 			urlQueryParams: false,
+			genAI: { inputs: false, outputs: false },
 			stackFrameVariables: false,
 		},
+		// Без сессий: только ошибки, а не сводка по каждому запросу.
+		integrations: [Sentry.httpIntegration({ sessions: false })],
 	})
 }
 
