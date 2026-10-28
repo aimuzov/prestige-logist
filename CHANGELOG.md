@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.5](https://github.com/aimuzov/prestige-logist/compare/v1.3.4...v1.3.5) (2026-10-28)
+
+
+### Bug Fixes
+
+* **deps:** move to infra-site-kit 5.9.1 with the strict Sentry events ([1793ed5](https://github.com/aimuzov/prestige-logist/commit/1793ed5f9882bb4df38cc31088b3bad582779b92))
+* **deps:** move to infra-site-kit 5.9.1 with the strict Sentry events ([203b51b](https://github.com/aimuzov/prestige-logist/commit/203b51b5780ab844345356272a3bff11abb24e99))
+
 ## [1.3.4](https://github.com/aimuzov/prestige-logist/compare/v1.3.3...v1.3.4) (2026-10-27)
 
 
