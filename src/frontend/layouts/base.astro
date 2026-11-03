@@ -1,4 +1,5 @@
 ---
+import Seo from '@aimuzov/infra-site-kit/seo.astro'
 import '@fontsource-variable/inter'
 import '@aimuzov/infra-site-kit/base.css'
 import ThemeBoot from '@aimuzov/infra-site-kit/theme-boot.astro'
@@ -27,15 +28,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site)
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>{fullTitle}</title>
-		<meta name="description" content={description} />
-		{index ? <link rel="canonical" href={canonical} /> : <meta name="robots" content="noindex" />}
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content={site.name} />
-		<meta property="og:locale" content="ru_RU" />
-		<meta property="og:url" content={canonical} />
-		<meta property="og:title" content={fullTitle} />
-		<meta property="og:description" content={description} />
+		<Seo
+			title={fullTitle}
+			description={description}
+			siteName={site.name}
+			url={canonical}
+			locale="ru_RU"
+			type="website"
+			canonical={index ? canonical : undefined}
+			robots={index ? undefined : 'noindex'}
+		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<!-- Блокирующий намеренно: тема должна встать до первой отрисовки. -->
 		<ThemeBoot />
