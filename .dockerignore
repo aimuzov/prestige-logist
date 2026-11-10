@@ -1,6 +1,7 @@
 .git
 .astro
 .claude
+.codex
 .serena
 .DS_Store
 node_modules

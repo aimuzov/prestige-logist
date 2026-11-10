@@ -6,7 +6,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 # В dependencies только то, что нужно API: Astro и линтеры живут в devDependencies.
-RUN npm ci --omit=dev --no-audit --no-fund --loglevel=error
+RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev --no-audit --no-fund --loglevel=error
 COPY src/shared ./src/shared
 COPY src/backend ./src/backend
 USER node
