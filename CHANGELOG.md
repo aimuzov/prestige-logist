@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/aimuzov/prestige-logist/compare/v1.3.5...v1.4.0) (2026-11-12)
+
+
+### Features
+
+* **deploy:** publish Prestige Logist images ([#52](https://github.com/aimuzov/prestige-logist/issues/52)) ([75c941f](https://github.com/aimuzov/prestige-logist/commit/75c941feebbbf745b6e24b1e0e5d8ba808a1aad6))
+
 ## [1.3.5](https://github.com/aimuzov/prestige-logist/compare/v1.3.4...v1.3.5) (2026-10-28)
 
 
